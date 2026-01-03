@@ -185,6 +185,7 @@ const FinalStep = () => {
       particleCount: 150,
       spread: 100,
       origin: { y: 0.4 },
+      scalar: 1.5,
     });
 
     // 0.5초 후 양쪽에서 발사
@@ -194,12 +195,14 @@ const FinalStep = () => {
         angle: 60,
         spread: 55,
         origin: { x: 0 },
+        scalar: 1.5,
       });
       confetti({
         particleCount: 100,
         angle: 120,
         spread: 55,
         origin: { x: 1 },
+        scalar: 1.5,
       });
     }, 500);
 
@@ -209,6 +212,7 @@ const FinalStep = () => {
         particleCount: 120,
         spread: 80,
         origin: { y: 0.5 },
+        scalar: 1.5,
       });
     }, 1500);
 
@@ -246,11 +250,11 @@ function App() {
 
   return (
     <div className="flex h-dvh justify-center items-center p-28">
-      {page === 1 && <MainStep onNext={onNext} />}
+      {page === 3 && <MainStep onNext={onNext} />}
       {page === 2 && <FingerPrintStep onNext={onNext} />}
       {page === 3 && <PasswordStep onNext={onNext} />}
       {page === 4 && <SignatureStep onNext={onNext} />}
-      {page === 5 && <FinalStep onNext={onNext} />}
+      {page === 1 && <FinalStep />}
     </div>
   );
 }
