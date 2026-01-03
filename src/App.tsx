@@ -250,11 +250,11 @@ function App() {
 
   return (
     <div className="flex h-dvh justify-center items-center p-28">
-      {page === 3 && <MainStep onNext={onNext} />}
+      {page === 1 && <MainStep onNext={onNext} />}
       {page === 2 && <FingerPrintStep onNext={onNext} />}
       {page === 3 && <PasswordStep onNext={onNext} />}
       {page === 4 && <SignatureStep onNext={onNext} />}
-      {page === 1 && <FinalStep />}
+      {page === 5 && <FinalStep />}
     </div>
   );
 }
