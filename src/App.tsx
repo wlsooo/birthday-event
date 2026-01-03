@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { Button } from "./components/ui/button";
 import { Card } from "./components/ui/card";
-import signatureAnimation from "/public/Signature.json";
-import fingerPrintAnimation from "/public/Fingerprint.json";
+import signatureAnimation from "./assets/Signature.json";
+import fingerPrintAnimation from "./assets/Fingerprint.json";
 import Lottie from "lottie-react";
 import confetti from "canvas-confetti";
 
