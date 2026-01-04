@@ -6,6 +6,7 @@ import signatureAnimation from "./assets/Signature.json";
 import fingerPrintAnimation from "./assets/Fingerprint.json";
 import bankLogo from "./assets/bank_logo.jpeg";
 import insertCard from "./assets/insertCard.jpg";
+import birthdayMusic from "./assets/birthday.mp3";
 import Lottie from "lottie-react";
 import confetti from "canvas-confetti";
 import { toast, Toaster } from "sonner";
@@ -199,45 +200,46 @@ const SignatureStep = ({ onNext }: Props) => {
 
 const FinalStep = () => {
   useEffect(() => {
-    // 첫 번째 폭죽
-    confetti({
-      particleCount: 150,
-      spread: 100,
-      origin: { y: 0.4 },
-      scalar: 1.5,
-    });
+    const audio = new Audio(birthdayMusic);
+    audio.loop = true;
 
-    // 0.5초 후 양쪽에서 발사
-    const timeout1 = setTimeout(() => {
-      confetti({
-        particleCount: 100,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0 },
-        scalar: 1.5,
-      });
-      confetti({
-        particleCount: 100,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1 },
-        scalar: 1.5,
-      });
-    }, 500);
+    const playAudio = () => {
+      audio.play().catch((err) => console.log("자동재생 차단:", err));
+    };
+    playAudio();
 
-    // 1.5초 후 한 번 더
-    const timeout2 = setTimeout(() => {
+    const duration = 20000;
+    const animationEnd = Date.now() + duration;
+
+    const randomInRange = (min: number, max: number) => {
+      return Math.random() * (max - min) + min;
+    };
+
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        return;
+      }
+
       confetti({
-        particleCount: 120,
-        spread: 80,
-        origin: { y: 0.5 },
-        scalar: 1.5,
+        startVelocity: 30,
+        spread: 360,
+        ticks: 60,
+        particleCount: 50,
+        scalar: randomInRange(2, 2.5),
+        origin: {
+          x: randomInRange(0.1, 0.9),
+          y: randomInRange(0.2, 0.5),
+        },
       });
-    }, 1500);
+    }, 400);
 
     return () => {
-      clearTimeout(timeout1);
-      clearTimeout(timeout2);
+      clearInterval(interval);
+      audio.pause();
+      audio.currentTime = 0;
     };
   }, []);
 
