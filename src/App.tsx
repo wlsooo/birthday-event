@@ -4,6 +4,8 @@ import { Button } from "./components/ui/button";
 import { Card } from "./components/ui/card";
 import signatureAnimation from "./assets/Signature.json";
 import fingerPrintAnimation from "./assets/Fingerprint.json";
+import bankLogo from "./assets/bank_logo.jpeg";
+import insertCard from "./assets/insertCard.jpg";
 import Lottie from "lottie-react";
 import confetti from "canvas-confetti";
 
@@ -28,7 +30,7 @@ const AuthCard = ({ content }: Props) => {
 const MainStep = ({ onNext }: Props) => {
   return (
     <div className="relative">
-      <img src="/bank_logo.jpeg" className="w-48 absolute -top-40 -left-20" />
+      <img src={bankLogo} className="w-48 absolute -top-40 -left-20" />
       <p className="font-bold text-5xl text-center mb-4">
         <span>환영합니다 </span>
         <span className="text-primary">최인순</span>
@@ -231,7 +233,7 @@ const FinalStep = () => {
         카드를 투입구에 넣으시면 출금이 완료됩니다
       </p>
       <div className="flex justify-center items-center">
-        <img src="/insertCard.jpg" className="w-[350px]" />
+        <img src={insertCard} className="w-[350px]" />
       </div>
     </div>
   );
