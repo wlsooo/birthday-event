@@ -8,6 +8,7 @@ import bankLogo from "./assets/bank_logo.jpeg";
 import insertCard from "./assets/insertCard.jpg";
 import Lottie from "lottie-react";
 import confetti from "canvas-confetti";
+import { toast, Toaster } from "sonner";
 
 interface Props {
   onNext?: () => void;
@@ -20,7 +21,7 @@ const AuthCard = ({ content }: Props) => {
       <div className="bg-[linear-gradient(to_bottom,#5491ff,#0a61ff)] text-white text-3xl font-semibold p-3 text-center">
         본인인증
       </div>
-      <div className="h-full text-2xl flex justify-center items-center px-2.5">
+      <div className="h-full text-2xl flex justify-center items-center px-2.5 max-xl:text-xl">
         {content}
       </div>
     </Card>
@@ -53,10 +54,18 @@ const FingerPrintStep = ({ onNext }: Props) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       onNext?.();
-    }, 5000);
+    }, 7000);
 
     return () => clearTimeout(timeout);
   }, [onNext]);
+
+  useEffect(() => {
+    const toastTimeout = setTimeout(() => {
+      toast("✅ 인증되었습니다");
+    }, 5000);
+
+    return () => clearTimeout(toastTimeout);
+  }, []);
 
   return (
     <div className="grid grid-cols-2 w-full h-full gap-7">
@@ -97,7 +106,7 @@ const PasswordStep = ({ onNext }: Props) => {
 
   return (
     <div className="grid grid-cols-2 w-full h-full gap-7">
-      <AuthCard content="비밀번호를 입력해주세요" />
+      <AuthCard content="비밀번호 4자리를 입력해주세요" />
       <div className="flex flex-col gap-8">
         <div className="bg-[#F9FAFB] rounded-2xl flex justify-center gap-4 py-5">
           {[0, 1, 2, 3].map((index) => (
@@ -156,10 +165,18 @@ const SignatureStep = ({ onNext }: Props) => {
   useEffect(() => {
     const timeout = setTimeout(() => {
       onNext?.();
-    }, 5000);
+    }, 7000);
 
     return () => clearTimeout(timeout);
   }, [onNext]);
+
+  useEffect(() => {
+    const toastTimeout = setTimeout(() => {
+      toast("✅ 인증되었습니다");
+    }, 5000);
+
+    return () => clearTimeout(toastTimeout);
+  }, []);
 
   return (
     <div className="grid grid-cols-2 w-full h-full gap-7">
@@ -233,7 +250,7 @@ const FinalStep = () => {
         카드를 투입구에 넣으시면 출금이 완료됩니다
       </p>
       <div className="flex justify-center items-center">
-        <img src={insertCard} className="w-[350px]" />
+        <img src={insertCard} className="w-87.5" />
       </div>
     </div>
   );
@@ -252,6 +269,13 @@ function App() {
 
   return (
     <div className="flex h-dvh justify-center items-center p-28">
+      <Toaster
+        richColors
+        position="top-center"
+        duration={2000}
+        closeButton={false}
+      />
+
       {page === 1 && <MainStep onNext={onNext} />}
       {page === 2 && <FingerPrintStep onNext={onNext} />}
       {page === 3 && <PasswordStep onNext={onNext} />}
