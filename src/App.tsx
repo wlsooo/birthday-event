@@ -81,7 +81,7 @@ const FingerPrintStep = ({ onNext }: Props) => {
           {/* 지문 애니메이션 */}
           <Lottie
             animationData={fingerPrintAnimation}
-            style={{ height: 200 }}
+            style={{ height: 300 }}
           />
         </div>
       </div>
