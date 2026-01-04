@@ -70,8 +70,8 @@ const FingerPrintStep = ({ onNext }: Props) => {
   return (
     <div className="grid grid-cols-2 w-full h-full gap-7">
       <AuthCard content="기계에 손가락을 올려 지문을 인식해주세요" />
-      <div className="p-0 flex items-center justify-center">
-        <div className="relative flex justify-center items-center p-14">
+      <div className="p-0 flex items-center justify-center bg-purple-50">
+        <div className="relative flex justify-center items-center p-14 bg-lime-50">
           {/* 모서리 border */}
           <div className="absolute top-0 left-0 w-12 h-12 border-t-10 border-l-10 border-black" />
           <div className="absolute top-0 right-0 w-12 h-12 border-t-10 border-r-10 border-black" />
