@@ -10,10 +10,13 @@ import birthdayMusic from "./assets/birthday.mp3";
 import Lottie from "lottie-react";
 import confetti from "canvas-confetti";
 import { toast, Toaster } from "sonner";
+import { Input } from "./components/ui/input";
 
 interface Props {
   onNext?: () => void;
   content?: string;
+  name?: string;
+  setName?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const AuthCard = ({ content }: Props) => {
@@ -29,13 +32,29 @@ const AuthCard = ({ content }: Props) => {
   );
 };
 
-const MainStep = ({ onNext }: Props) => {
+const InputNameStep = ({ onNext, name, setName }: Props) => {
+  return (
+    <div className="flex flex-col gap-5 w-80">
+      <div className="flex flex-col gap-1 items-center">
+        <label className="font-semibold text-xl">
+          주인공 이름을 입력하세요
+        </label>
+        <Input value={name} onChange={(e) => setName?.(e.target.value)} />
+      </div>
+      <Button className="w-full" onClick={onNext}>
+        확인
+      </Button>
+    </div>
+  );
+};
+
+const MainStep = ({ onNext, name }: Props) => {
   return (
     <div className="relative">
       <img src={bankLogo} className="w-48 absolute -top-40 -left-20" />
       <p className="font-bold text-5xl text-center mb-4">
         <span>환영합니다 </span>
-        <span className="text-primary">최인순</span>
+        <span className="text-primary">{name}</span>
         <span>님!</span>
       </p>
       <p className="text-3xl mb-12">
@@ -259,15 +278,12 @@ const FinalStep = () => {
 };
 
 function App() {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
+  const [name, setName] = useState("");
 
   const onNext = () => {
     setPage((prev) => prev + 1);
   };
-
-  useEffect(() => {
-    console.log("현재 페이지: ", page);
-  }, [page]);
 
   return (
     <div className="flex h-dvh justify-center items-center p-28">
@@ -278,7 +294,10 @@ function App() {
         closeButton={false}
       />
 
-      {page === 1 && <MainStep onNext={onNext} />}
+      {page === 0 && (
+        <InputNameStep onNext={onNext} name={name} setName={setName} />
+      )}
+      {page === 1 && <MainStep onNext={onNext} name={name} />}
       {page === 2 && <FingerPrintStep onNext={onNext} />}
       {page === 3 && <PasswordStep onNext={onNext} />}
       {page === 4 && <SignatureStep onNext={onNext} />}
